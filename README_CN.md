@@ -2,6 +2,8 @@
 
 ![logo](./images/icon.png)
 
+[English](./README.md) | [中文](./README_CN.md)
+
 **MarkDump** 是一款方便实用的 VS Code 插件，用于自动检测 Markdown 文档中的图片链接，下载图片并存储在文档目录下的 `img` 文件夹中，同时按顺序编号重命名，并将文档中的图片链接替换为本地路径。
 
 ## 功能特色
@@ -78,10 +80,6 @@
 ---
 
 ## 开发者信息
-如果你有任何问题或建议，欢迎在 [GitHub 项目主页](https://github.com/your-repo-link) 提交 Issue 或 Pull Request。
+如果你有任何问题或建议，欢迎在 [GitHub 项目主页](https://github.com/TinyFunction/MarkDump) 提交 Issue 或 Pull Request。
 
 **MarkDump**，让 Markdown 图片处理更高效！🎉
-
----
-
-你可以根据自己的需求进一步调整内容，例如替换 GitHub 链接或添加更多细节。如果需要进一步优化，欢迎随时沟通！

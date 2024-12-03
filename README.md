@@ -2,6 +2,8 @@
 
 ![logo](./images/icon.png)
 
+[English](./README.md) | [中文](./README_CN.md)
+
 **MarkDump** is a handy VS Code extension that automatically detects image links in Markdown documents, downloads them, and stores them in an `img` folder within the document's directory. It also renames the images sequentially (e.g., `01.png`, `02.png`, `03.png`) and replaces the original links in the Markdown file with the local paths.
 
 ## Features
@@ -78,6 +80,6 @@
 ---
 
 ## Developer Information
-If you have any questions or suggestions, feel free to submit an issue or pull request on the [GitHub project page](https://github.com/your-repo-link).
+If you have any questions or suggestions, feel free to submit an issue or pull request on the [GitHub project page](https://github.com/TinyFunction/MarkDump).
 
 **MarkDump** — making Markdown image management easier and more efficient! 🎉
