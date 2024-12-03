@@ -2,7 +2,7 @@
   "name": "markdump",
   "displayName": "MarkDump",
   "description": "This plugin will detect the markdown document image link, and automatically download to the file directory under the img directory. Then replace the image link in the document with the local image.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "images/icon.png",
   "author": "wjc133",
   "publisher": "TinyFunction",
@@ -18,19 +18,28 @@
     "commands": [
       {
         "command": "markdump.downloadImages",
-        "title": "Download Images and Update Links"
+        "title": "Download Images and Update Links",
+        "category": "MarkDump"
       }
-    ]
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "markdump.downloadImages",
+          "when": "editorLangId == markdown"
+        }
+      ]
+    }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
+    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test",
-    "package": "pnpm vsce package --no-dependencies",
-    "publish": "pnpm vsce publish --no-dependencies"
+    "package": "npm vsce package",
+    "publish": "npm vsce publish"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
