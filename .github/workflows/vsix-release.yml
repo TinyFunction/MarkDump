@@ -1,0 +1,36 @@
+name: VSX Release
+
+on:
+  push:
+    branches:
+      # 当 push 到 master 分支时触发构建
+      - "master"
+      # - "vscode/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4.1.1
+
+      - uses: pnpm/action-setup@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: npm install
+        run: npm install
+
+      # https://github.com/HaaLeo/publish-vscode-extension
+      - name: build vscode vsx
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.VSCE_PAT }}
+          skipDuplicate: false
+          registryUrl: https://marketplace.visualstudio.com
+          yarn: false
+
