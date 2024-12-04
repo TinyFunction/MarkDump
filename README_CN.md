@@ -35,7 +35,7 @@
    ![Another Image](https://example.com/image2.jpg)
    ```
 3. 按下 `Ctrl+Shift+P`（Windows/Linux）或 `Cmd+Shift+P`（macOS），打开命令面板。
-4. 输入并选择 `MarkDump: Download Images`。
+4. 输入并选择 `MarkDump: Download Images and Update Links`。
 5. 插件将自动执行以下操作：
    - 下载图片到文件目录下的 `img` 文件夹中。
    - 按顺序重命名图片，例如：`img/01.png`, `img/02.jpg`。

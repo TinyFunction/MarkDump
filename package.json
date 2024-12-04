@@ -2,7 +2,7 @@
   "name": "markdump",
   "displayName": "MarkDump",
   "description": "This plugin will detect the markdown document image link, and automatically download to the file directory under the img directory. Then replace the image link in the document with the local image.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "images/icon.png",
   "author": "wjc133",
   "publisher": "TinyFunction",

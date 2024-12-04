@@ -35,7 +35,7 @@
    ![Another Image](https://example.com/image2.jpg)
    ```
 3. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS) to open the Command Palette.
-4. Type and select `MarkDump: Download Images`.
+4. Type and select `MarkDump: Download Images and Update Links`.
 5. The extension will:
    - Download images to an `img` folder in the document's directory.
    - Rename the images sequentially, e.g., `img/01.png`, `img/02.jpg`.
