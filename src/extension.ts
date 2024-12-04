@@ -19,32 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		const fileDir = path.dirname(uri.fsPath);
-		const imgDir = await vscode.window.showQuickPick(
-			[
-					{ label: 'Default (img)', description: 'Use the default img folder', value: 'img' },
-					{ label: 'Custom', description: 'Specify a custom folder', value: 'custom' }
-			],
-				{ placeHolder: 'Select the folder to save downloaded images' }
-		).then(async (selection) => {
-				if (!selection) {
-						return; // User cancelled the input
-				}
-				if (selection.value === 'custom') {
-						const customDir = await vscode.window.showInputBox({
-								placeHolder: 'Enter the custom directory path',
-								validateInput: (input) => input ? null : 'Directory path cannot be empty'
-						});
-						return customDir ? customDir : 'img';
-				}
-				return selection.value;
-		});
+    	const imgDir = await vscode.window.showInputBox({
+      	placeHolder: 'Enter the custom directory path or press Enter to use the default "img" folder',
+      }).then((input) => {
+      	return input ? input : 'img';
+      });
 
-		if (!imgDir) {
-			return;
-		}
+    if (!imgDir) {
+    	return;
+    }
 
-		const finalImgDir = path.isAbsolute(imgDir) ? imgDir : path.join(fileDir, imgDir);
-		await fs.ensureDir(finalImgDir); // Ensure the directory exists
+    const finalImgDir = path.isAbsolute(imgDir) ? imgDir : path.join(fileDir, imgDir);
+    await fs.ensureDir(finalImgDir); // Ensure the directory exists
 
 		let text = document.getText();
 		const regex = /!\[.*?\]\((https?:\/\/[^\)]+)\)/g;
@@ -56,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const imageUrl = match[1];
 			const ext = path.extname(imageUrl) || '.png'; // Default to .png if no extension
 			const newFileName = `${padZero(counter, 2)}${ext}`;
-			const filePath = path.join(imgDir, newFileName);
+			const filePath = path.join(finalImgDir, newFileName);
 			counter++;
 
 			try {
