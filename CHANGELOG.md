@@ -1,10 +1,16 @@
 # Change Log
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.0.4]
 
-## [Unreleased]
+### Added
 
-- todo...
+- Allow users to customize the default image directory.
+- Allow users to choose whether to download silently.
+- Implement two image rename rules: `sequence` and `hash`.
+
+### Changed
+
+- Refined certain portions of the text.
   
 ## [0.0.3] - 2024-12-04
 

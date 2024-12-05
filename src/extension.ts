@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import axios from 'axios';
+import * as crypto from 'crypto';
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('markdump.downloadImages', async () => {
@@ -18,30 +19,37 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
+		const configuration = vscode.workspace.getConfiguration('markdump');
+		let defaultDir = configuration.get<string>('download.defaultDir');
+		if (!defaultDir) {
+			defaultDir = 'img';
+		}
 		const fileDir = path.dirname(uri.fsPath);
-    	const imgDir = await vscode.window.showInputBox({
-      	placeHolder: 'Enter the custom directory path or press Enter to use the default "img" folder',
-      }).then((input) => {
-      	return input ? input : 'img';
-      });
 
-    if (!imgDir) {
-    	return;
-    }
+		let imgDir = defaultDir;
 
-    const finalImgDir = path.isAbsolute(imgDir) ? imgDir : path.join(fileDir, imgDir);
-    await fs.ensureDir(finalImgDir); // Ensure the directory exists
+		if (!configuration.get<boolean>("download.silent")) {
+			const imgDir = await vscode.window.showInputBox({
+				placeHolder: `Input the custom directory path or press 'Enter' to use default`,
+			}).then((input) => {
+				return input ? input : defaultDir;
+			});
+		}
+
+		const renameRule = configuration.get<string>('image.rename');
+
+		const finalImgDir = path.isAbsolute(imgDir) ? imgDir : path.join(fileDir, imgDir);
+		await fs.ensureDir(finalImgDir); // Ensure the directory exists
 
 		let text = document.getText();
 		const regex = /!\[.*?\]\((https?:\/\/[^\)]+)\)/g;
 		const matches = [...text.matchAll(regex)];
-		const downloadTasks: Promise<void>[] = [];
 		let counter = 1;
 
 		for (const match of matches) {
 			const imageUrl = match[1];
 			const ext = path.extname(imageUrl) || '.png'; // Default to .png if no extension
-			const newFileName = `${padZero(counter, 2)}${ext}`;
+			const newFileName = `${generateFilename(renameRule, counter, imageUrl)}${ext}`;
 			const filePath = path.join(finalImgDir, newFileName);
 			counter++;
 
@@ -60,6 +68,17 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+}
+
+function generateFilename(renameRule: string | undefined, num: number, imageUrl: string): string {
+	if (renameRule === "hash") {
+		return hashFilename(imageUrl);
+	}
+	return padZero(num, 2);
+}
+
+function hashFilename(imageUrl: string): string {
+	return crypto.createHash('md5').update(imageUrl).digest('hex');
 }
 
 function padZero(num: number, size: number): string {

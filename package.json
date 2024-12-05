@@ -2,7 +2,7 @@
   "name": "markdump",
   "displayName": "MarkDump",
   "description": "This plugin will detect the markdown document image link, and automatically download to the file directory under the img directory. Then replace the image link in the document with the local image.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "images/icon.png",
   "author": "wjc133",
   "publisher": "TinyFunction",
@@ -29,7 +29,32 @@
           "when": "editorLangId == markdown"
         }
       ]
-    }
+    },
+    "configuration": {
+        "type": "object",
+        "title": "MarkDump",
+        "properties": {
+          "markdump.download.defaultDir": {
+            "type": "string",
+            "default": "img",
+            "description": "The default directory name to store downloaded images"
+          },
+          "markdump.download.silent": {
+            "type": "boolean",
+            "default": false,
+            "description": "don't prompt me to specify a custom path for each download."
+          },
+          "markdump.image.rename": {
+            "type": "string",
+            "default": "sequence",
+            "description": "Specifies a renaming rule",
+            "enum": [
+              "sequence",
+              "hash"
+            ]
+          }
+        }
+      }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
